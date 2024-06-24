@@ -6,11 +6,11 @@ import Navbar from "./components/Navbar";
 
 function App() {
   return (
-    <div className="h-screen w-screen bg-[#f1f1f1]">
+    <div className="min-h-screen min-w-[100dvw] bg-[#f1f1f1]">
       <BrowserRouter>
         <Navbar />
 
-        <div className="max-w-[1400px] px-20 py-5 mx-0 my-auto">
+        <div className="max-w-[1400px] p-5 m-[0_auto]">
           <Routes>
             <Route path="/" element={<Home />} />
           </Routes>
