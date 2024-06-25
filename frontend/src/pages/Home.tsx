@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import WorkoutDetail from "../components/WorkoutDetail";
+import WorkoutForm from "../components/WorkoutForm";
 
 const Home = () => {
   const [workouts, setWorkouts] = useState<
@@ -15,15 +16,11 @@ const Home = () => {
 
   useEffect(() => {
     const fetchWorkouts = async () => {
-      try {
-        const response = await fetch("/api/workouts/");
-        const result = await response.json();
+      const response = await fetch("/api/workouts/");
+      const json = await response.json();
 
-        if (response.ok) {
-          setWorkouts(result);
-        }
-      } catch (err) {
-        console.log(err);
+      if (response.ok) {
+        setWorkouts(json);
       }
     };
 
@@ -37,6 +34,7 @@ const Home = () => {
             <WorkoutDetail key={workout._id} workout={workout} />
           ))}
       </div>
+      <WorkoutForm />
     </div>
   );
 };
