@@ -25,7 +25,7 @@ mongoose
     // listen for request
     app.listen(process.env.PORT, () => {
       console.log("listening on port", process.env.PORT);
-      console.log("http://localhost:", process.env.PORT);
+      console.log(`http://localhost:${process.env.PORT}`);
     });
   })
   .catch((err) => {
