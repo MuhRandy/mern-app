@@ -1,13 +1,15 @@
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
 import Label from "./ui/Label";
 import Input from "./ui/Input";
+import { cn } from "../utils/cn";
 
 const WorkoutForm = () => {
   const [title, setTitle] = useState("");
   const [load, setLoad] = useState("");
   const [reps, setReps] = useState("");
   const [error, setError] = useState(null);
+  const [emptyFields, setEmptyFields] = useState<string[]>([]);
 
   const { state, dispatch } = useWorkoutsContext();
 
@@ -26,12 +28,16 @@ const WorkoutForm = () => {
 
     const json = await response.json();
 
-    if (!response.ok) setError(json.error);
+    if (!response.ok) {
+      setError(json.error);
+      setEmptyFields(json.emptyFields);
+    }
     if (response.ok) {
       setTitle("");
       setLoad("");
       setReps("");
       setError(null);
+      setEmptyFields([]);
       console.log("new workout added", json);
       dispatch({
         type: "CREATE_WORKOUT",
@@ -47,24 +53,31 @@ const WorkoutForm = () => {
 
       <Label>Exercise Title:</Label>
       <Input
+        className={cn({
+          "border border-error border-solid": emptyFields.includes("title"),
+        })}
         type="text"
-        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-          setTitle(e.target.value)
-        }
+        onChange={(e) => setTitle(e.target.value)}
         value={title}
       />
 
       <Label>Load (in Kg):</Label>
       <Input
+        className={cn({
+          "border border-error border-solid": emptyFields.includes("load"),
+        })}
         type="number"
-        onChange={(e: ChangeEvent<HTMLInputElement>) => setLoad(e.target.value)}
+        onChange={(e) => setLoad(e.target.value)}
         value={load}
       />
 
       <Label>Reps:</Label>
       <Input
+        className={cn({
+          "border border-error border-solid": emptyFields.includes("reps"),
+        })}
         type="number"
-        onChange={(e: ChangeEvent<HTMLInputElement>) => setReps(e.target.value)}
+        onChange={(e) => setReps(e.target.value)}
         value={reps}
       />
 
