@@ -9,7 +9,7 @@ type StateType = {
 };
 
 type ActionType = {
-  type: "SET_WORKOUTS" | "CREATE_WORKOUT";
+  type: "SET_WORKOUTS" | "CREATE_WORKOUT" | "DELETE_WORKOUT";
   payload: WorkoutType[];
   workout: WorkoutType;
 };
@@ -47,6 +47,11 @@ export const workoutReducer = (
     case "CREATE_WORKOUT":
       return {
         workouts: [action.workout, ...state.workouts],
+      };
+
+    case "DELETE_WORKOUT":
+      return {
+        workouts: state.workouts.filter((w) => w._id !== action.workout._id),
       };
 
     default:

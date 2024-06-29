@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
+import Label from "./ui/Label";
+import Input from "./ui/Input";
 
 const WorkoutForm = () => {
   const [title, setTitle] = useState("");
@@ -43,27 +45,26 @@ const WorkoutForm = () => {
     <form onSubmit={handleSubmit}>
       <h2 className="font-bold text-lg">Add a New Workout</h2>
 
-      <label className="block">Exercise Title:</label>
-      <input
-        className="block p-[10px] mb-5 w-full border-[#ddd] border-[1px] border-solid rounded box-border"
+      <Label>Exercise Title:</Label>
+      <Input
         type="text"
-        onChange={(e) => setTitle(e.target.value)}
+        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+          setTitle(e.target.value)
+        }
         value={title}
       />
 
-      <label className="block">Load (in Kg):</label>
-      <input
-        className="block p-[10px] mb-5 w-full border-[#ddd] border-[1px] border-solid rounded box-border"
+      <Label>Load (in Kg):</Label>
+      <Input
         type="number"
-        onChange={(e) => setLoad(e.target.value)}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => setLoad(e.target.value)}
         value={load}
       />
 
-      <label className="block">Reps:</label>
-      <input
-        className="block p-[10px] mb-5 w-full border-[#ddd] border-[1px] border-solid rounded box-border"
+      <Label>Reps:</Label>
+      <Input
         type="number"
-        onChange={(e) => setReps(e.target.value)}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => setReps(e.target.value)}
         value={reps}
       />
 
