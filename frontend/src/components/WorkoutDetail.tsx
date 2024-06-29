@@ -1,5 +1,6 @@
 import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
-
+import { IconTrash } from "@tabler/icons-react";
+import { formatDistanceToNow } from "date-fns/formatDistanceToNow";
 type WorkoutDetailProps = {
   workout: {
     _id: string;
@@ -42,13 +43,13 @@ const WorkoutDetail = ({ workout }: WorkoutDetailProps) => {
         <strong>Reps: </strong>
         {workout.reps}
       </p>
-      <p>{workout.createdAt}</p>
-      <span
+      <p>
+        {formatDistanceToNow(new Date(workout.createdAt), { addSuffix: true })}
+      </p>
+      <IconTrash
         onClick={handleClick}
-        className="absolute top-5 right-5 cursor-pointer bg-[#f1f1f1] p-[6px] rounded-[50%] color-[#333]"
-      >
-        Delete
-      </span>
+        className="absolute top-5 right-5 cursor-pointer text-error"
+      />
     </div>
   );
 };
